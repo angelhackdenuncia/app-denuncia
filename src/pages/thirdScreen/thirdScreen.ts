@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController  } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController  } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
@@ -18,7 +18,8 @@ export class thirdScreenPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private geolocation: Geolocation,
-              public alertCtrl: AlertController
+              public alertCtrl: AlertController,
+              public toastCtrl: ToastController
             ) {
     this.selectedItem = navParams.get('item');
     this.califica = false;
@@ -67,6 +68,15 @@ export class thirdScreenPage {
 
   getCalifica(){
     this.califica = false;
+
+    let toast = this.toastCtrl.create({
+      message: 'Gracias por su voto',
+      duration: 3000,
+       position: 'middle'
+    });
+
+    toast.present();
+
     let califica = {
       "calificacion" : this.numero,
     }
@@ -74,9 +84,6 @@ export class thirdScreenPage {
 
   }
 
-  getVote(){
-    return this.califica = true;
-  }
   sendInfo() {
     this.getGeo();
   }
