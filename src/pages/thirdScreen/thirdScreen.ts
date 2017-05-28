@@ -21,20 +21,32 @@ export class thirdScreenPage {
 
   getGeo(){
     this.geolocation.getCurrentPosition().then((resp) => {
- // resp.coords.latitude
- // resp.coords.longitude
-      console.log(resp.coords.latitude,resp.coords.longitude);
+      let myJson = {
+        "descripcion" : this.denuncia,
+        "latitud": resp.coords.latitude,
+        "longitud" : resp.coords.longitude
+      }
+
+      var xmlhttp = new XMLHttpRequest();
+      var url = "http://ec2-52-15-226-254.us-east-2.compute.amazonaws.com:8080/helpym/webresources/denuncias/";
+
+      xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          var myArr = JSON.parse(this.responseText);
+          console.log(myArr);
+      }
+    };
+
+      xmlhttp.open("GET", url, true);
+      xmlhttp.send();
+
+
     }).catch((error) => {
       console.log('Error getting location', error);
     });
   }
 
-  logForm(){
-    console.log(this.denuncia);
-  }
-
   sendInfo() {
     this.getGeo();
-    this.logForm();
   }
 }
