@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
+
 @Component({
   selector: 'page-third',
   templateUrl: 'thirdScreen.html',
@@ -12,7 +13,8 @@ export class thirdScreenPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private geolocation: Geolocation ) {
+              private geolocation: Geolocation,
+            ) {
     this.selectedItem = navParams.get('item');
   }
 
@@ -20,8 +22,7 @@ export class thirdScreenPage {
     this.geolocation.getCurrentPosition().then((resp) => {
  // resp.coords.latitude
  // resp.coords.longitude
-      console.log("aca la localizacion: ")
-      console.log(resp.coords.latitude,resp.coords.longitude)
+      console.log(resp.coords.latitude,resp.coords.longitude);
     }).catch((error) => {
       console.log('Error getting location', error);
     });
