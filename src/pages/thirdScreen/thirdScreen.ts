@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController  } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
@@ -13,12 +13,15 @@ export class thirdScreenPage {
   selectedItem: any;
   denuncia: {};
   numero: {};
+  califica: boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private geolocation: Geolocation,
+              public alertCtrl: AlertController
             ) {
     this.selectedItem = navParams.get('item');
+    this.califica = false;
   }
 
   getGeo(){
@@ -32,14 +35,18 @@ export class thirdScreenPage {
       var xmlhttp = new XMLHttpRequest();
       var url = "http://ec2-52-15-226-254.us-east-2.compute.amazonaws.com:8080/helpym/webresources/denuncias/put";
 
+      let alertme: any = this.showAlert;
+      let thiz: any = this.alertCtrl;
+
+      this.califica = true;
+
       xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var myArr = JSON.parse(this.responseText);
-          console.log(myArr);
-          alert("mensaje enviado")
+          console.log(myArr.recomendacion);
+          alertme(myArr.recomendacion, thiz)
         }
       };
-
       xmlhttp.open("PUT", url, true);
       xmlhttp.setRequestHeader("Content-Type", "application/json");
       xmlhttp.send(JSON.stringify(myJson));
@@ -49,26 +56,28 @@ export class thirdScreenPage {
     });
   }
 
+   showAlert(txtRta: string, thiz: any) {
+     let alert = thiz.create({
+       title: 'Mi recomendacion',
+       subTitle: txtRta,
+       buttons: ['OK']
+     });
+     alert.present();
+   }
+
+  getCalifica(){
+    this.califica = false;
+    let califica = {
+      "calificacion" : this.numero,
+    }
+
+
+  }
+
+  getVote(){
+    return this.califica = true;
+  }
   sendInfo() {
     this.getGeo();
-  }
-  getCalifica(e){
-    console.log(this.numero)
-
-    var xmlhttp = new XMLHttpRequest();
-    var url = "http://ec2-52-15-226-254.us-east-2.compute.amazonaws.com:8080/helpym/webresources/calificaRecomendacion/put";
-
-    xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        var myArr = JSON.parse(this.responseText);
-        console.log(myArr);
-        alert("mensaje enviado")
-      }
-    };
-
-    xmlhttp.open("PUT", url, true);
-    xmlhttp.setRequestHeader("Content-Type", "application/json");
-    xmlhttp.send(JSON.stringify(this.numero));
-
   }
 }

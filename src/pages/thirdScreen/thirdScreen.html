@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="secondary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -14,21 +14,26 @@
    </button>
   </ion-fab>
   <ion-card>
-    <img src="assets/denuncia.png"/>
     <ion-card-content>
       <h1>DENUNCIA HELPYM</h1>
     </ion-card-content>
   </ion-card>
-
   <ion-item>
-     <ion-input class="description" type="text" placeholder="Ingrese su denuncia" [(ngModel)]="denuncia">
-     </ion-input>
+    <img src="assets/denuncia.png"/>
   </ion-item>
+  <BR>
+  <ion-title [hidden]="!califica">
+    Califica la recomendacion:
+  </ion-title>
 
-  <ion-item>
+  <ion-item [hidden]="!califica">
     <ion-range (mouseup)="getCalifica()" value="3" snaps="true" min="0" max="5" step="1" [(ngModel)]="numero">
       <ion-label range-left>1</ion-label>
       <ion-label range-right>5</ion-label>
     </ion-range>
+  </ion-item>
+  <ion-item>
+     <ion-input class="description" type="text" placeholder="Ingrese su denuncia" [(ngModel)]="denuncia">
+     </ion-input>
   </ion-item>
 </ion-content>
