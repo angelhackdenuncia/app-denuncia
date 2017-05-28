@@ -10,6 +10,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 })
 export class thirdScreenPage {
   selectedItem: any;
+  denuncia: {};
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -28,9 +29,12 @@ export class thirdScreenPage {
     });
   }
 
-  sendInfo() {
-    this.getGeo()
+  logForm(){
+    console.log(this.denuncia);
   }
 
-
+  sendInfo() {
+    this.getGeo();
+    this.logForm();
+  }
 }
