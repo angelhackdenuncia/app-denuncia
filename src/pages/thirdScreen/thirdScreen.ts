@@ -2,15 +2,17 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
-
 @Component({
   selector: 'page-third',
   templateUrl: 'thirdScreen.html',
-  providers: [Geolocation]
+  providers: [Geolocation],
 })
+
+
 export class thirdScreenPage {
   selectedItem: any;
   denuncia: {};
+  numero: {};
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -49,5 +51,24 @@ export class thirdScreenPage {
 
   sendInfo() {
     this.getGeo();
+  }
+  getCalifica(e){
+    console.log(this.numero)
+
+    var xmlhttp = new XMLHttpRequest();
+    var url = "http://ec2-52-15-226-254.us-east-2.compute.amazonaws.com:8080/helpym/webresources/calificaRecomendacion/put";
+
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myArr = JSON.parse(this.responseText);
+        console.log(myArr);
+        alert("mensaje enviado")
+      }
+    };
+
+    xmlhttp.open("PUT", url, true);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.send(JSON.stringify(this.numero));
+
   }
 }

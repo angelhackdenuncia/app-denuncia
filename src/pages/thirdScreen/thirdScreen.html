@@ -24,4 +24,11 @@
      <ion-input class="description" type="text" placeholder="Ingrese su denuncia" [(ngModel)]="denuncia">
      </ion-input>
   </ion-item>
+
+  <ion-item>
+    <ion-range (mouseup)="getCalifica()" value="3" snaps="true" min="0" max="5" step="1" [(ngModel)]="numero">
+      <ion-label range-left>1</ion-label>
+      <ion-label range-right>5</ion-label>
+    </ion-range>
+  </ion-item>
 </ion-content>

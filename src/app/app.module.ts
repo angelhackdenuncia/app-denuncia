@@ -9,13 +9,15 @@ import { thirdScreenPage } from '../pages/thirdScreen/thirdScreen';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { RatingComponent } from '../components/rating/rating';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    thirdScreenPage
+    thirdScreenPage,
+    RatingComponent
   ],
   imports: [
     BrowserModule,
